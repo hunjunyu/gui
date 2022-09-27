@@ -15,7 +15,7 @@ public class infoview {
 
 	//2. 멤버변수 객체생성
 	infoview(){
-		f= new JFrame("DBTest");
+		f= new JFrame("DBTest"); // 창의 이름 설정
 		tfname = new JTextField(15);
 		tfid = new JTextField(15);
 		tftel = new JTextField(15);
@@ -33,27 +33,27 @@ public class infoview {
 	}
 
 	//3. 화면구성하고 출력
-	// 전체프레임 border lasyout지정
-	// west : panel 붙이기 (griudkatiyt()6,2)
+	// 전체프레임 BorderLayout지정
+	// west : panel 붙이기 (GridLayout()6,2)
 	// center : 텍스트에어리어
-	// south : jpanel 붙이기 - (griudkatiyt()1,6)
+	// south : JPanel 붙이기 - (GridLayout()1,6)
 	public void addLayout() {
 		f.setLayout(new BorderLayout()); // 동/서/남/북 으로 출력할 내용의 위치를 지정하여 출력하게 만드는 구문 
 		JPanel p = new JPanel(); // 패널 구문
 		p.setLayout(new GridLayout(6,2)); //출력시 지정한 행과 열로 출력되게 하는 구문 (그리드) 
 
-		f.add(p , BorderLayout.WEST);
+		f.add(p , BorderLayout.WEST);// 텍스트 출력을 왼쪽에 하는 구문 
 		p.add(new JLabel("Name",JLabel.CENTER)); // "Name"이라고 출력
 		p.add(tfname);//텍스트 출력구문
 		p.add(new JLabel("Id",JLabel.CENTER));// "Id"이라고 출력
 		p.add(tfid);//텍스트 출력구문
 		p.add(new JLabel("Tel",JLabel.CENTER));// "Tel"이라고 출력
 		p.add(tftel);//텍스트 출력구문
-		p.add(new JLabel("Sex",JLabel.CENTER));// 네임이라고 출력
+		p.add(new JLabel("Sex",JLabel.CENTER));// "Sex"라고 출력
 		p.add(tfgender);//텍스트 출력구문
-		p.add(new JLabel("Age",JLabel.CENTER));// 네임이라고 출력
+		p.add(new JLabel("Age",JLabel.CENTER));// "Age"라고 출력
 		p.add(tfage);//텍스트 출력구문
-		p.add(new JLabel("Home",JLabel.CENTER));// 네임이라고 출력
+		p.add(new JLabel("Home",JLabel.CENTER));// "Home"이라고 출력
 		p.add(tfhome);//텍스트 출력구문
 
 		//p.add(new JLabel("Name, id ,tel"));
@@ -78,8 +78,8 @@ public class infoview {
 
 	public static void main(String[] args) {
 
-		infoview info = new infoview();
-		info.addLayout();
+		infoview info = new infoview(); // 객체 새롭게 지정하며 생성
+		info.addLayout();// 출력구문
 
 	}
 
