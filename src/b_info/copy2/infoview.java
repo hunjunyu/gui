@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Calendar;
+import java.util.concurrent.Callable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+import java.util.*;
 public class infoview {
 
 	//1. 멤버변수 선언
@@ -25,7 +26,8 @@ public class infoview {
 	JTextArea ta; // 지정한크기 만큼 쓸수잇는 공간
 	JButton badd,bshow,bsearch,bdelete,bcancle,bexit; //버튼 
 	Calendar c = Calendar.getInstance();
-
+    
+	ArrayList<PersonVO> list = new ArrayList();
 
 	//2. 멤버변수 객체생성
 	infoview(){
@@ -106,39 +108,44 @@ public class infoview {
 	}
 	public void evenProc() {
 		//ADD 버튼이 눌렷을때 이벤트 처리
-		badd.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JOptionPane.showMessageDialog(null, "이벤트 발생3");
+		badd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				inputdata();
+				JOptionPane.showMessageDialog(null, "저장완료");
+				clearTextfield();
+				selectall();
+				
 			}
 		});
-		bshow.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JOptionPane.showMessageDialog(null, "이벤트 발생3");
+		bshow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				selectall();
+				JOptionPane.showMessageDialog(null, "목록 출력");
 			}
 		});
-		bsearch.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JOptionPane.showMessageDialog(null, "이벤트 발생3");
+		bsearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				selectbytel();
+				
 			}
 		});
-		bdelete.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				JOptionPane.showMessageDialog(null, "이벤트 발생3");
+		tftel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				selectbytel();
+			}
+		});
+		bdelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				deletByTel();
+				JOptionPane.showMessageDialog(null, "삭제완료");
 			}
 		});
 		bcancle.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				JOptionPane.showMessageDialog(null, "이벤트 발생3");
+				clearTextfield();
+				JOptionPane.showMessageDialog(null, "삭제완료");
 			}
 		});
 		
@@ -160,15 +167,104 @@ public class infoview {
 			public void focusLost(FocusEvent e) {	
 			}
 			
+			
 		});
+		//cancle 버튼이 눌렷을때
+		
 		}
+	
 		//end of addFocusListener	
+	
+	void clearTextfield() {
+		//각각의 텍스트 필드와 텍스트 에어리어 값을 지우기
+		ta.setText(null);
+		tfage.setText(null);
+		tfgender.setText(null);
+		tfhome.setText(null);
+		tfid.setText(null);
+		tfname.setText(null);
+		tftel.setText(null);
+		
+		
+	}//end of clearTextfield
+
+	// 함수명   : selectbytel()
+	// 인자    : 없음
+	// 리턴값   : void
+	void selectbytel() {
+		String te = tftel.getText();
+		if(te.equals("")) {
+			JOptionPane.showMessageDialog(null, "전화번호를 입력하세요");
+			return;//받은값이 없다면 메세지만 띄우고바로 제어권을 반납하고 나가야한다.
+		}
+		//리스트에 저장된 personvo의 전화번호와 비교하여 해당 전화번호가 잇으면 그 내용을 각각의 텍스트플드에 출력
+		for(PersonVO vo :list) {
+			if(te.equals(vo.getTel())) {
+			tfname.setText(vo.getName());
+			tfage.setText(Integer.toString(vo.getAge()));
+			tfgender.setText(vo.getGender());
+		    tfid.setText(vo.getId());
+		    tfhome.setText(vo.getHome());
+			
+			}
+			
+		}
+		
+	}
+
+	// add버튼을 눌럿을때 텍스트 필드에 입력한 사용자의 값들을 PersonVO에 저장하기
+	
+	void inputdata () {
+		//1. 각각의 텍스트 필드의 입력값을 얻어오기
+		
+		
+		//2. 1번 값들을 personvo멤버 변수에 저장(setter/constructor)
+		PersonVO vo = new PersonVO();
+		vo.setAge(Integer.parseInt(tfage.getText()));
+		vo.setTel(tftel.getText());
+		vo.setHome(tfhome.getText());
+		vo.setGender(tfgender.getText());
+		vo.setId(tfid.getText());
+		vo.setName(tfname.getText());
+		
+		list.add(vo);	
+	}//end of inputdata
+	
+	//리스트에 저장된 정보를 모두 텍스트 에어리어에 출력
+	void selectall() {
+		ta.setText("-------------전체 목록-------------\n\n");
+		for(PersonVO vo : list) {
+			ta.append(vo.toString());
+		}
+		
+	}// end of selecetall
+	
+	void deletByTel() {
+		String te = tftel.getText();
+		if(te.equals("")) {
+			JOptionPane.showMessageDialog(null, "전화번호를 입력하세요");
+			return;//받은값이 없다면 메세지만 띄우고바로 제어권을 반납하고 나가야한다.
+		}
+		//입력한 전화번호값을 얻어오기
+	    //입력받은 전화번호가 공백이라면 "전화번호를 입력하세요"라는 메세지창을 출력
+		//리스트에 저장된 personvo의 전화번호와 비교하여
+		//해당 전화번호가 있으면 그 해당하는 personvo를 리스트에서 삭제
+		// 참고 삭제하고나서 break로 반복문 끝내기
+		for (PersonVO vo : list) {
+			if(te.equals(vo.getTel())) {
+				list.remove(vo);
+			}break;
+		}
+
+	}
+
+	
 			
 	
 	void jumininfo() {
 				String junin = tfid.getText();
-				if(junin.length()<14) {
-				JOptionPane.showMessageDialog(null, " - 포함한 15자를 맞춰주세요");
+				if(junin.length()<14|junin.length()>=15) {
+				JOptionPane.showMessageDialog(null, " - 포함한 14자를 맞춰주세요");
                 junin.charAt(7);
 				
 				return;	
@@ -212,8 +308,7 @@ public class infoview {
 		info.addLayout();// 출력구문
 		info.evenProc();
 
-		String man = null;
-		String woman = null;
+		
 		
 	
 		
