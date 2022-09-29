@@ -30,7 +30,6 @@ public class Buger extends JPanel{
 	public Buger(MainTest maintest) {
 		
 		mt = maintest;
-		addLayout();
 		
 		int arr[] = new int[6];
 		lol();
@@ -46,33 +45,18 @@ public class Buger extends JPanel{
 		for(int i = 0; i<price.length;i++) {
 			price[i] = new JButton(String.valueOf(pr[i]));
 		}
+		menu[0] = new JButton("불고기 버거 2,300원", new ImageIcon("src//z_과제//bu//bul.png"));
+		menu[1] = new JButton("빅맥 4,900원",new ImageIcon("src//z_과제//bu//big.png"));
+		menu[2] = new JButton("상하이치킨 버거 4,900원",new ImageIcon("src//z_과제//bu//sang.png"));
+		menu[3] = new JButton("베이컨디럭스 버거 5,800원",new ImageIcon("src//z_과제//bu//di.png"));
+		menu[4] = new JButton("슈비 버거 5,800원",new ImageIcon("src//z_과제//bu//subi.png"));
+		menu[5] = new JButton("1955 버거 6,000원",new ImageIcon("src//z_과제//bu//1955.png"));
+		for (int i=0; i<menu.length; i++) {
+		menu[i].setHorizontalTextPosition(JButton.CENTER);
+		menu[i].setVerticalTextPosition(JButton.BOTTOM);
+		}
 		
 	}
-	
-	
-	void addLayout() {
-	
-		
-		bul = new JButton("불고기 버거 2,300원",new ImageIcon("src//Buger//bu//bul.png"));
-		bul.setHorizontalTextPosition(JButton.CENTER);
-		bul.setVerticalTextPosition(JButton.BOTTOM);
-		big = new JButton("빅맥 4,900원",new ImageIcon("src//Buger//bu//big.png"));
-		big.setHorizontalTextPosition(JButton.CENTER);
-		big.setVerticalTextPosition(JButton.BOTTOM);
-		sang = new JButton("상하이치킨 버거 4,900원",new ImageIcon("src//Buger//bu//sang.png"));
-		sang.setHorizontalTextPosition(JButton.CENTER);
-		sang.setVerticalTextPosition(JButton.BOTTOM);
-		dilux = new JButton("베이컨디럭스 버거 5,800원",new ImageIcon("src//Buger//bu//di.png"));
-		dilux.setHorizontalTextPosition(JButton.CENTER);
-		dilux.setVerticalTextPosition(JButton.BOTTOM);
-		subi = new JButton("슈비 버거 5,800원",new ImageIcon("src//Buger//bu//subi.png"));
-		subi.setHorizontalTextPosition(JButton.CENTER);
-		subi.setVerticalTextPosition(JButton.BOTTOM);
-		guoo = new JButton("1955 버거 6,000원",new ImageIcon("src//Buger//bu//1955.png"));
-		guoo.setHorizontalTextPosition(JButton.CENTER);
-		guoo.setVerticalTextPosition(JButton.BOTTOM);
-		
-	}//end of addlayout
 	
 	void lol() {
 		setLayout(new BorderLayout());    //레이아웃 세팅
