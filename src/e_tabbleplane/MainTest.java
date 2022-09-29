@@ -27,7 +27,7 @@ public class MainTest {
 		la = new JLabel("데이터");
 		
 		panelA = new PanelA(this);
-		panelB = new PanelB();
+		panelB = new PanelB(this);
 		panelC = new PanelC();
 		
 	}
