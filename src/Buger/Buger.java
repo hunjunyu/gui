@@ -22,6 +22,10 @@ public class Buger extends JPanel{
 	JButton btn,bul,big,sang,dilux,subi,guoo; //메뉴버튼
 	MainTest mt;//메인테스트 출력
     int arr[];
+    JButton []menu = new JButton[6];
+    String[] ma = {"불고기 버거","빅맥","상하이치킨 버거","베이컨디럭스 버거","슈비 버거","1955 버거"};
+    JButton [] price = new JButton[6];
+    int []pr = {2300,4900,4900,5800,5800,6000};
     
 	public Buger(MainTest maintest) {
 		
@@ -31,9 +35,19 @@ public class Buger extends JPanel{
 		int arr[] = new int[6];
 		lol();
 		btn();
-		
+		eventproc();
 		
 	}// end of buger
+	
+	void eventproc() {
+		for(int i = 0; i<menu.length;i++) {
+			menu[i] = new JButton(ma[i]);
+		}
+		for(int i = 0; i<price.length;i++) {
+			price[i] = new JButton(String.valueOf(pr[i]));
+		}
+		
+	}
 	
 	
 	void addLayout() {
